@@ -1,0 +1,18 @@
+import os
+import time
+
+f = open('Data/stocklog.csv')
+f.seek(0, os.SEEK_END)
+
+while True:
+    line = f.readline()
+    if line == '':
+        time.sleep(0.1)
+        continue
+    fields = line.split(',')
+    name, price, date, _, change, *r = fields
+    name = name.strip('"')
+    price = float(price)
+    change = float(change)
+    if change < 0:
+        print(f'{name:>10s} {price:>10.2f} {change:>10.2f} {date:>5s}')
